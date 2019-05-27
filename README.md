@@ -226,21 +226,31 @@ The Master Brick Blue LED is turned off indicating boot mode.
 ## APPENDIX Tinkerforge - Python API bindings
 The Tinkerforge Python API bindings are required, installed using pip3.
 Pip3 installs the bindings in a common dist-packages folder, which is on the Raspberry Pi Domoticz Server, folder:
+```
 /usr/lib/python3/dist-packages
+```
 
 Running pip3:
+```
 sudo pip3 install tinkerforge
+```
 Log Output:
+```
 Collecting tinkerforge
 Installing collected packages: tinkerforge
 Successfully installed tinkerforge-2.1.22
+```
 
 The Tinkerforge Python API bindings are installed in folder:
+```
 /usr/local/lib/python3.5/dist-packages
+```
 
 Check the content results in two folders, from which the folder tinkerforge is required
+```
 ls /usr/local/lib/python3.5/dist-packages
 tinkerforge tinkerforge-2.1.22.dist-info
+```
 
 **IMPORTANT**
 Depending setup of the Python distributed packages, following steps are required.
@@ -249,19 +259,38 @@ If thats the case, then leave the next steps out.
 
 Copy the content of the folder /usr/local/lib/python3.5/dist-packages/tinkerforge to folder /usr/lib/python3/dist-packages/tinkerforge,
 because all the Python distributed packages are located in folder /usr/lib/python3/dist-packages/:
+```
 sudo cp -r /usr/local/lib/python3.5/dist-packages/tinkerforge /usr/lib/python3/dist-packages
+```
 
 Check the content of the dist-packages folder tinkerforge:
+```
 ls /usr/lib/python3/dist-packages/tinkerforge
 brick_dc.py bricklet_led_strip.py brick_hat.py bricklet_led_strip_v2.py ...
+```
 
 Remove the dist-packages folders:
+```
 sudo rm -r /usr/local/lib/python3.5/dist-packages/tinkerforge
 sudo rm -r /usr/local/lib/python3.5/dist-packages/tinkerforge-2.1.22.dist-info
 ls /usr/local/lib/python3.5/dist-packages
+```
 
 ## APPENDIX Domoticz - Python Plugin Code
 See file **plugin.py**.
+
+## APPENDIX Domoticz - MQTT Message
+Example of an MQTT message issued by the Traffic Light Selector Switch.
+Analyzing MQTT messages helps to understand the properties and values of a device.
+```
+{
+"Battery" : 255,
+"LevelActions" : "|||",   "LevelNames" : "Off|RED|YELLOW|GREEN",   "LevelOffHidden" : "true",   
+"RSSI" : 12,   "SelectorStyle" : "0",   "description" : "",   "dtype" : "Light/Switch",   "id" : "00050001",   
+"idx" : 13,   "name" : "Traffic Light - State Selector", 
+"nvalue" : 2,   "stype" : "Selector Switch",   "svalue1" : "30",   "switchType" : "Selector",  "unit" : 1
+}
+```
 
 ##  APPENDIX Samba Shared Drive
 Steps to create and connect to a Samba shared drive on the Raspberry Pi Domoticz Server.
@@ -312,3 +341,5 @@ sudo /etc/init.d/samba restart
 
 ### Windows Shared Drive
 Connect to \\ip-raspi-server\DoDevDomoticz
+
+
