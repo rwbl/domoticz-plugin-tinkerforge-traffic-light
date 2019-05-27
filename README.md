@@ -1,5 +1,4 @@
 # Domoticz Tinkerforge Plugin - TrafficLight
-20190527 by Robert W.B. Linn (rwblinn@outlook.de)
 
 # Objectives
 * To set the color of a Tinkerforge RGB Bricklet to red, yellow or green using a Domoticz Selector Switch Device.
