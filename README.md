@@ -94,7 +94,7 @@ Open windows Domoticz Setup > Hardware, Domoticz Setup > Log, Domoticz Setup > D
 This is required to add the new hardware with its device and monitor if the plugin code is running without errors.
 
 ## Create the plugin
-The plugin has a mandatory filename plugin.py located in the newly created plugin folder
+The plugin has a mandatory filename **plugin.py** located in the created plugin folder **/home/pi/domoticz/plugins/trafficlight**
 For Python development Thonny, running on a Windows 10 device, is used.
 
 See APPENDIX Domoticz Python Plugin Code (well documented).
@@ -112,8 +112,8 @@ Handling the state change of the Traffic Light Selector Switch is done by the **
 This function updates the state of the Domoticz Devices: State Selector (idx=13), Alert Indicator (idx=14), Change Info (idx=15).
 
 **Pseudo Code**
-* FIRST TIME: onStart to create the Domoticz Devices
-* NEXT TIMES: onCommand to handle state changes
+* FIRST TIME: _onStart_ to create the Domoticz Devices
+* NEXT TIME(S): _onCommand_ to handle state changes
 	* Domoticz make IP connection to the Tinkerforge Master Brick
 	* Get the Level of the Domoticz Device "State Selector" (Selector Switch)
 	* Update the Tinkerforge Bricklet RGB LED with the new color depending Level
@@ -121,14 +121,13 @@ This function updates the state of the Domoticz Devices: State Selector (idx=13)
 	* Domoticz to disconnect from the Tinkerforge Master Brick
 
 **Note**
-onHeartbeat is not used as not polling for the state of a Tinkerforge Bricklet and update Domoticz Device(s) accordingly.
+Function _onHeartbeat_ is not used as not polling for the state of a Tinkerforge Bricklet and update Domoticz Device(s) accordingly.
 
 ## Restart Domoticz
 Restart Domoticz to find the plugin:
 ```
 sudo systemctl restart domoticz.service
 ```
-
 **Note**
 When making changes to the Python plugin code, ensure to restart Domoticz and refresh any of the Domoticz Web UI's.
 
