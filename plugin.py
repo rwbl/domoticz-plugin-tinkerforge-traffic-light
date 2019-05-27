@@ -5,6 +5,7 @@
 #
 # NOTE: after every change run
 # sudo service domoticz.sh restart
+# Checkthe Domoticz log: http://IP-ADDRESS:8080/#/Log 
 #
 # Domoticz Python Plugin Development Documentation:
 # https://www.domoticz.com/wiki/Developing_a_Python_plugin
@@ -31,7 +32,7 @@
         Requires the HTTP address and Port of the Master Brick WiFi Extention and the UID of the Tinkerforge RGB LED Bricklet.
     </description>
     <params>
-        <param field="Address" label="Host" width="200px" required="true" default="IP-ADDRESS"/>
+        <param field="Address" label="Host" width="200px" required="true" default="192.168.1.112"/>
         <param field="Port" label="Port" width="75px" required="true" default="4223"/>
         <param field="Mode1" label="UID" width="75px" required="true" default="zMF"/>
         <param field="Mode4" label="Brightness" width="75px" required="true" default="100"/>
@@ -112,6 +113,8 @@ class BasePlugin:
 
     def onCommand(self, Unit, Command, Level, Hue):
         Domoticz.Debug("onCommand called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
+        # Flag to check if connected to the master brick
+        ipconnected = 0
         try:
             # Create IP connection
             ipcon = IPConnection()
@@ -120,7 +123,6 @@ class BasePlugin:
             lb = BrickletRGBLED(Parameters["Mode1"], ipcon)
 
             # Connect to brickd using Host and Port
-            ipconnected = 0
             try:
                 ipcon.connect(Parameters["Address"], int(Parameters["Port"]))
                 ipconnected = 1
@@ -129,6 +131,7 @@ class BasePlugin:
                 Domoticz.Debug("[ERROR] IP Connection failed")
 
             # Don't use device before ipcon is connected
+            
             # Set Alert Indicator to Orange with ERROR text
             if ipconnected == 0:
                 ## Alert device (2)
