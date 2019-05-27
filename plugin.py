@@ -31,7 +31,7 @@
         Requires the HTTP address and Port of the Master Brick WiFi Extention and the UID of the Tinkerforge RGB LED Bricklet.
     </description>
     <params>
-        <param field="Address" label="Host" width="200px" required="true" default="IP-ADDRESS"/>
+        <param field="Address" label="Host" width="200px" required="true" default="192.168.1.112"/>
         <param field="Port" label="Port" width="75px" required="true" default="4223"/>
         <param field="Mode1" label="UID" width="75px" required="true" default="zMF"/>
         <param field="Mode4" label="Brightness" width="75px" required="true" default="100"/>
@@ -129,6 +129,15 @@ class BasePlugin:
                 Domoticz.Debug("[ERROR] IP Connection failed")
 
             # Don't use device before ipcon is connected
+            # Set Alert Indicator to Orange with ERROR text
+            if ipconnected == 0:
+                ## Alert device (2)
+                ##   nvalue=LEVEL - (0=gray, 1=green, 2=yellow, 3=orange, 4=red)
+                ##   svalue=TEXT
+                Devices[2].Update( nValue=3, sValue="[ERROR] Device Connection!")
+                Domoticz.Debug(Devices[2].Name + "-nValue=" + str(Devices[2].nValue) + ",sValue=" + Devices[2].sValue  )
+                Domoticz.Log(Devices[2].sValue)
+                return
 
             ## Get the selector switch value (1) triggered by the onCommand parameter Level
             ## Handle initial state being empty
@@ -197,8 +206,11 @@ class BasePlugin:
             # Important to close the connection - if not, the plugin can notbe disabled
             if ipconnected == 1:
                 ipcon.disconnect()
-                # Devices[1].Name
-                Domoticz.Log("[ERROR] Check settings, correct and restart Domoticz")
+            
+            ## Set Alert Indicator to Level ORANGE with error text
+            Devices[2].Update( nValue=3, sValue="[ERROR] Check settings, correct and restart Domoticz")
+            Domoticz.Debug(Devices[2].Name + "-nValue=" + str(Devices[2].nValue) + ",sValue=" + Devices[2].sValue )
+            Domoticz.Log(Devices[2].sValue)
 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         Domoticz.Debug("Notification: " + Name + "," + Subject + "," + Text + "," + Status + "," + str(Priority) + "," + Sound + "," + ImageFile)
