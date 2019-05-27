@@ -13,9 +13,9 @@ The Tinkerforge RGB LED Bricklet is connected to a Tinkerforge Master Brick with
 
 ## Hardware Parts
 * Raspberry Pi 3B+
-* Tinkerforge Master Brick 1.1 [read](https://www.tinkerforge.com/en/doc/Hardware/Bricks/Master_Brick.html#master-brick)
-* Tinkerforge WIFI Master Extention 2.0 [read](https://www.tinkerforge.com/en/doc/Hardware/Master_Extensions/WIFI_V2_Extension.html)
-* Tinkerforge RGB LED Bricklet [read](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/RGB_LED.html)
+* Tinkerforge Master Brick 1.1 [(more)](https://www.tinkerforge.com/en/doc/Hardware/Bricks/Master_Brick.html#master-brick)
+* Tinkerforge WIFI Master Extention 2.0 [(more)](https://www.tinkerforge.com/en/doc/Hardware/Master_Extensions/WIFI_V2_Extension.html)
+* Tinkerforge RGB LED Bricklet [(more)](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/RGB_LED.html)
 
 ## Software
 Versions for developing & using this plugin.
@@ -26,8 +26,6 @@ Versions for developing & using this plugin.
 * Thonny 3.1.2 (Python IDE)
 
 ## Setup Tinkerforge and Domoticz
-For details setting up Tinkerforge and Domoticz read the documentation **SETUP.md**.
-Below steps are how to in a nutshell.
 
 ## Tinkerforge Python API bindings
 sudo pip3 install tinkerforge
@@ -35,7 +33,7 @@ Check if Tinkerforge Python API bindings are installed in folder: /usr/local/lib
 
 ## Tinkerforge Master Brick and Bricklets
 Ensure the Master Brick and Bricklets are running with the latest firmware.
-See **SETUP.md**.
+See **APPENDIX Tinkerforge - Master Brick and Bricklets**.
 
 ## Traffic Light Prototype
 Build the prototype by connecting the Tinkerforge building blocks (see hardware).
@@ -55,10 +53,12 @@ Save as plugin.py in the folder /home/pi/domoticz/plugins/trafficlight
 
 ## Python Plugin Path to Tinkerforge API Bindings
 In the Python Plugin code (**plugin.py**) amend the import path to enable using the Tinkerforge API Bindings:
-	from os import path
-	import sys
-	sys.path
-	sys.path.append('/usr/lib/python3/dist-packages')
+```
+from os import path
+import sys
+sys.path
+sys.path.append('/usr/local/lib/python3.5/dist-packages')
+```
 
 ## Development Setup
 Development PC:
