@@ -13,9 +13,9 @@ The Tinkerforge RGB LED Bricklet is connected to a Tinkerforge Master Brick with
 
 ## Hardware Parts
 * Raspberry Pi 3B+
-* Tinkerforge Master Brick 1.1 [ref](https://www.tinkerforge.com/en/doc/Hardware/Bricks/Master_Brick.html#master-brick)
-* Tinkerforge WIFI Master Extention 2.0 [ref](https://www.tinkerforge.com/en/doc/Hardware/Master_Extensions/WIFI_V2_Extension.html)
-* Tinkerforge RGB LED Bricklet [ref](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/RGB_LED.html)
+* Tinkerforge Master Brick 1.1 [read](https://www.tinkerforge.com/en/doc/Hardware/Bricks/Master_Brick.html#master-brick)
+* Tinkerforge WIFI Master Extention 2.0 [read](https://www.tinkerforge.com/en/doc/Hardware/Master_Extensions/WIFI_V2_Extension.html)
+* Tinkerforge RGB LED Bricklet [read](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/RGB_LED.html)
 
 ## Software
 Versions for developing & using this plugin.
