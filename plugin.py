@@ -1,11 +1,11 @@
 # Domoticz Home Automation - TrafficLight
 # Set the color of a Tinkerforge RGB LED Bricklet to RED,YELLOW or GREEN via a Domoticz Selector Switch device.
 # @author Robert W.B. Linn
-# @version 1.0.0 (Build 20190527)
+# @version 1.0.0 (Build 20190528)
 #
-# NOTE: after every change run
-# sudo service domoticz.sh restart
-# Checkthe Domoticz log: http://IP-ADDRESS:8080/#/Log 
+# NOTE:
+# after every change run: sudo service domoticz.sh restart
+# Check the Domoticz log: http://IP-ADDRESS:8080/#/Log 
 #
 # Domoticz Python Plugin Development Documentation:
 # https://www.domoticz.com/wiki/Developing_a_Python_plugin
@@ -71,6 +71,8 @@ RGBBRIGHTNESSMAX = 255
 class BasePlugin:
     
     def __init__(self):
+        # Flag to check if connected to the master brick
+        self.ipConnected = 0
         return
 
     def onStart(self):
@@ -114,7 +116,7 @@ class BasePlugin:
     def onCommand(self, Unit, Command, Level, Hue):
         Domoticz.Debug("onCommand called for Unit " + str(Unit) + ": Parameter '" + str(Command) + "', Level: " + str(Level))
         # Flag to check if connected to the master brick
-        ipconnected = 0
+        self.ipConnected = 0
         try:
             # Create IP connection
             ipcon = IPConnection()
@@ -125,7 +127,7 @@ class BasePlugin:
             # Connect to brickd using Host and Port
             try:
                 ipcon.connect(Parameters["Address"], int(Parameters["Port"]))
-                ipconnected = 1
+                self.ipConnected = 1
                 Domoticz.Debug("IP Connection - OK")
             except:
                 Domoticz.Debug("[ERROR] IP Connection failed")
@@ -133,13 +135,14 @@ class BasePlugin:
             # Don't use device before ipcon is connected
             
             # Set Alert Indicator to Orange with ERROR text
-            if ipconnected == 0:
+            if self.ipConnected == 0:
                 ## Alert device (2)
                 ##   nvalue=LEVEL - (0=gray, 1=green, 2=yellow, 3=orange, 4=red)
                 ##   svalue=TEXT
-                Devices[2].Update( nValue=3, sValue="[ERROR] Device Connection!")
+                Devices[2].Update( nValue=3, sValue="ERROR")
                 Domoticz.Debug(Devices[2].Name + "-nValue=" + str(Devices[2].nValue) + ",sValue=" + Devices[2].sValue  )
-                Domoticz.Log(Devices[2].sValue)
+                Devices[3].Update( nValue=0, sValue="[ERROR] Can not connect to Master Brick. Check settings, correct and restart Domoticz." )
+                Domoticz.Log(Devices[3].sValue)
                 return
 
             ## Get the selector switch value (1) triggered by the onCommand parameter Level
@@ -202,18 +205,20 @@ class BasePlugin:
             ipcon.disconnect()
 
             # Log Message
-            Domoticz.Log("TrafficLight Update: OK")
+            Domoticz.Log(Devices[3].sValue)
                 
         except:
             # Error
             # Important to close the connection - if not, the plugin can notbe disabled
-            if ipconnected == 1:
+            if self.ipConnected == 1:
                 ipcon.disconnect()
             
-            ## Set Alert Indicator to Level ORANGE with error text
-            Devices[2].Update( nValue=3, sValue="[ERROR] Check settings, correct and restart Domoticz")
+            ## Set Alert Indicator to Level ORANGE with error flag and show text in text device
+            Devices[2].Update( nValue=3, sValue="ERROR")
             Domoticz.Debug(Devices[2].Name + "-nValue=" + str(Devices[2].nValue) + ",sValue=" + Devices[2].sValue )
-            Domoticz.Log(Devices[2].sValue)
+            
+            Devices[3].Update( nValue=0, sValue="[ERROR] Check settings, correct and restart Domoticz." )
+            Domoticz.Log(Devices[3].sValue)
 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         Domoticz.Debug("Notification: " + Name + "," + Subject + "," + Text + "," + Status + "," + str(Priority) + "," + Sound + "," + ImageFile)
@@ -222,7 +227,7 @@ class BasePlugin:
         Domoticz.Debug("onDisconnect called")
 
     def onHeartbeat(self):
-        Domoticz.Log("onHeartbeat called")
+        Domoticz.Debug("onHeartbeat called")
 
                 
 global _plugin
