@@ -1,3 +1,6 @@
-### 20190527
+### 20190528
+* UPD: Changed parameter "Mode1" to handle more than one UID (=Bricklet)
+* UPD: Improved error handling
 
+### 20190527
 * NEW: First version published
