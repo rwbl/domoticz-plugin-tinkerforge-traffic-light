@@ -103,13 +103,13 @@ Domoticz Devices created and set as used.
 ```
 Domoticz.Device(Name="State Selector", Unit=1, TypeName="Selector Switch",  Options=Options, Used=1).Create()            
 Domoticz.Device(Name="Alert Indicator", Unit=2, TypeName="Alert", Used=1).Create()
-Domoticz.Device(Name="Change Info", Unit=3, TypeName="Text", Used=1).Create()
+Domoticz.Device(Name="Status", Unit=3, TypeName="Text", Used=1).Create()
 ```
 
 The devices are manually added to the Domoticz Dashboard.
 
 Handling the state change of the Traffic Light Selector Switch is done by the **onCommand** function.
-This function updates the state of the Domoticz Devices: State Selector (idx=13), Alert Indicator (idx=14), Change Info (idx=15).
+This function updates the state of the Domoticz Devices: State Selector (idx=13), Alert Indicator (idx=14), Status (idx=15).
 
 **Pseudo Code**
 * FIRST TIME: _onStart_ to create the Domoticz Devices
@@ -117,7 +117,7 @@ This function updates the state of the Domoticz Devices: State Selector (idx=13)
 	* Domoticz make IP connection to the Tinkerforge Master Brick
 	* Get the Level of the Domoticz Device "State Selector" (Selector Switch)
 	* Update the Tinkerforge Bricklet RGB LED with the new color depending Level
-	* Update the Domoticz Devices "Alert Indicator" and "State Info"
+	* Update the Domoticz Devices "Alert Indicator" and "Status"
 	* Domoticz to disconnect from the Tinkerforge Master Brick
 
 **Note**
@@ -168,7 +168,7 @@ Example:
 2019-05-27 09:43:32.552 (Traffic Light) Device created: Traffic Light - State Selector 
 2019-05-27 09:43:32.552 (Traffic Light) Creating device 'Alert Indicator'. 
 2019-05-27 09:43:32.553 (Traffic Light) Device created: Traffic Light - Alert Indicator 
-2019-05-27 09:43:32.553 (Traffic Light) Creating device 'Change Info'. 
+2019-05-27 09:43:32.553 (Traffic Light) Creating device 'Status'. 
 2019-05-27 09:43:32.554 (Traffic Light) Device created: Traffic Light - Change Info 
 2019-05-27 09:43:32.554 (Traffic Light) Pushing 'PollIntervalDirective' on to queue 
 2019-05-27 09:43:32.554 (Traffic Light) Processing 'PollIntervalDirective' message 
@@ -192,7 +192,7 @@ Handling the state changes are managed by the function onCommand.
 2019-05-27 09:51:51.030 (Traffic Light) Traffic Light - State Selector-nValue=2,sValue=10 
 2019-05-27 09:51:51.030 (Traffic Light - Alert Indicator) Updating device from 0:'No Alert!' to have values 4:'RED'. 
 2019-05-27 09:51:51.038 (Traffic Light) Traffic Light - Alert Indicator-nValue=4,sValue=RED 
-2019-05-27 09:51:51.038 (Traffic Light - Change Info) Updating device from 0:'' to have values 0:'Traffic Light changed from 0 to 10'. 
+2019-05-27 09:51:51.038 (Traffic Light - Status) Updating device from 0:'' to have values 0:'Traffic Light changed from 0 to 10'. 
 2019-05-27 09:51:51.045 (Traffic Light) Traffic Light - Change Info-nValue=0,sValue=Traffic Light changed from 0 to 10 
 2019-05-27 09:51:51.148 (Traffic Light) TrafficLight Update: OK 
 ```
@@ -201,7 +201,7 @@ Handling the state changes are managed by the function onCommand.
 Exception handling for communicating with the Master Brick & WiFi extension.
 
 ## Version
-20190527
+20190528
 
 ## APPENDIX Tinkerforge - Master Brick and Bricklets
 Ensure the Master Brick and Bricklets are running with the latest firmware.
