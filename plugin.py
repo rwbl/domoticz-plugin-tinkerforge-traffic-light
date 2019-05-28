@@ -1,7 +1,7 @@
 # Domoticz Home Automation - TrafficLight
 # Set the color of a Tinkerforge RGB LED Bricklet to RED,YELLOW or GREEN via a Domoticz Selector Switch device.
 # @author Robert W.B. Linn
-# @version 1.0.0 (Build 20190528)
+# @version 1.1.0 (Build 20190528)
 #
 # NOTE:
 # after every change run: sudo service domoticz.sh restart
@@ -24,15 +24,19 @@
         </ul>
         <h3>Traffic Light Devices</h3>
         <ul style="list-style-type:square">
-            <li>Set Traffic Light Color via Selector Switch with options RED, YELLOW or GREEN</li>
-            <li>Display Traffic Light Alert Indicator</li>
-            <li>Display Traffic Light Change Info</li>
+            <li>Traffic Light State Selector - Set the traffic light color RED,YELLOW or GREEN Selector Switch</li>
+            <li>Traffic Light Alert Indicator - Reflects the traffic light state</li>
+            <li>Traffic Light Status - Shows lastest change or any error condition</li>
         </ul>
         <h3>Configuration</h3>
-        Requires the HTTP address and Port of the Master Brick WiFi Extention and the UID of the Tinkerforge RGB LED Bricklet.
+        Requires the Tinkerforge Master Brick WiFi Extention HTTP address and Port and the Tinkerforge RGB LED Bricklet UID.<br/>
+        Use the Tinkerforge Brick Viewer to determine these parameter.
+        <br/>
+        <h4>Version</h4>
+        20190528
     </description>
     <params>
-        <param field="Address" label="Host" width="200px" required="true" default="IP-ADDRESS"/>
+        <param field="Address" label="Host" width="200px" required="true" default="192.168.1.112"/>
         <param field="Port" label="Port" width="75px" required="true" default="4223"/>
         <param field="Mode1" label="UID" width="75px" required="true" default="zMF"/>
         <param field="Mode4" label="Brightness" width="75px" required="true" default="100"/>
@@ -98,7 +102,7 @@ class BasePlugin:
             Domoticz.Debug("Device created: "+Devices[1].Name)
             Domoticz.Device(Name="Alert Indicator", Unit=2, TypeName="Alert", Used=1).Create()
             Domoticz.Debug("Device created: "+Devices[2].Name)
-            Domoticz.Device(Name="Change Info", Unit=3, TypeName="Text", Used=1).Create()
+            Domoticz.Device(Name="Status", Unit=3, TypeName="Text", Used=1).Create()
             Domoticz.Debug("Device created: "+Devices[3].Name)
             
         #  Set heartbeat to 60    
@@ -121,8 +125,15 @@ class BasePlugin:
             # Create IP connection
             ipcon = IPConnection()
             
-            # Create device objects using the UID  as defined in the parameters
-            lb = BrickletRGBLED(Parameters["Mode1"], ipcon)
+            # Create device objects using the UID as defined in the parameter Mode1
+            # The string can contain multiple UIDs separated by comma (,). This enables to define more bricklets.
+            brickletUIDParam = Parameters["Mode1"]
+            # Split the parameter string into a list of UIDs
+            brickletUIDList = brickletUIDParam.split(',')
+            # Check the list length and create the device objects
+            if len(brickletUIDList) == 1:
+                # First bricklet
+                lb = BrickletRGBLED(brickletUIDList[0], ipcon)
 
             # Connect to brickd using Host and Port
             try:
@@ -209,7 +220,7 @@ class BasePlugin:
                 
         except:
             # Error
-            # Important to close the connection - if not, the plugin can notbe disabled
+            # Important to close the connection - if not, the plugin can not be disabled
             if self.ipConnected == 1:
                 ipcon.disconnect()
             
@@ -227,6 +238,7 @@ class BasePlugin:
         Domoticz.Debug("onDisconnect called")
 
     def onHeartbeat(self):
+        # On heart beat not used as the devices are updated via onCommand trigger from the Selector Switch
         Domoticz.Debug("onHeartbeat called")
 
                 
