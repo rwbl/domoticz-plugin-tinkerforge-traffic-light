@@ -3,7 +3,7 @@
 # Objectives
 * To set the color of a Tinkerforge RGB Bricklet to red, yellow or green using a Domoticz Selector Switch Device.
 * To learn how to write generic Python [plugin(s)](https://www.domoticz.com/wiki/Developing_a_Python_plugin) for the Domoticz Home Automation System.
-* To learn how to interact7 with [Tinkerforge](http://www.tinkerforge.com) Building Blocks.
+* To learn how to interact with [Tinkerforge](http://www.tinkerforge.com) Building Blocks.
 * To use this sample plugin as a template for other Domoticz plugins interacting with Tinkerforge Building Blocks.
 
 ## Solution
@@ -341,5 +341,3 @@ sudo /etc/init.d/samba restart
 
 ### Windows Shared Drive
 Connect to \\ip-raspi-server\DoDevDomoticz
-
-
