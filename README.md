@@ -6,6 +6,8 @@
 * To learn how to interact with [Tinkerforge](http://www.tinkerforge.com) Building Blocks.
 * To use this sample plugin as a template for other Domoticz plugins interacting with Tinkerforge Building Blocks.
 
+_Abbreviations_: GUI=Domoticz Web UI.
+
 ## Solution
 A Domoticz Python plugin "Traffic Light" with a Tinkerforge RGB LED Bricklet.
 The Tinkerforge RGB LED Bricklet is connected to a Tinkerforge Master Brick with WiFi extension.
@@ -69,28 +71,28 @@ sys.path.append('/usr/local/lib/python3.5/dist-packages')
 Development PC:
 * Thonny to develop the Python Plugin
 * A shared drive Z: is defined pointing to /home/pi/domoticz
-* Browser Tab Domoticz Web UI > Setup > Log
-* Browser Tab Domoticz Web UI > Setup > Hardware
-* Browser Tab Domoticz Web UI > Setup > Devices
+* GUI > Setup > Log
+* GUI > Setup > Hardware
+* GUI > Setup > Devices
 * WinSCP session connected to the Domoticz server
 * Putty session connected to the Domoticz server
 
-The Browser tabs required to add the new hardware with its device and monitor if the plugin code is running without errors.
+The GUI's are required to add the new hardware with its device and monitor if the plugin code is running without errors.
 
 ## Development Iteration
 The development process step used are:
 1. Thonny develop z:\plugins\trafficlight\plugin.py
 2. Make changes and save plugin.py
 3. Restart Domoticz from Terminal: sudo service domoticz.sh restart
-4. Wait a moment and refresh the Browser Tab Domoticz Web UI > Log
+4. Wait a moment and refresh GUI > Log
 5. Check the log and fix as required
 
 **!IMPORTANT!**
-In the Domoticz Web UI > Setup > Settings,  enable accepting new hardware.
+In the GUI Setup > Settings, enable accepting new hardware.
 This is required to add the new hardware with its device and monitor if the plugin code is running without errors.
 
 ## Domoticz Web UI's
-Open windows Domoticz Setup > Hardware, Domoticz Setup > Log, Domoticz Setup > Devices
+Open GUI Setup > Hardware, GUI Setup > Log, GUI Setup > Devices
 This is required to add the new hardware with its device and monitor if the plugin code is running without errors.
 
 ## Create the plugin
@@ -133,13 +135,13 @@ When making changes to the Python plugin code, ensure to restart Domoticz and re
 
 ## Domoticz Add Hardware Traffic Light
 **IMPORTANT**
-Prior adding, set in the Domoticz Settings the option to allow new hardware.
+Prior adding, set GUI Setup > Settings > Hardware, the option to allow new hardware.
 If this option is not enabled, no new soilmoisture device is created.
-Check in the Domoticz log as error message Python script at the line where the new device is used
+Check the Domoticz Log as error message Python script at the line where the new device is used
 (i.e. Domoticz.Debug("Device created: "+Devices[1].Name))
 
 ## Add Hardware - Check the Domoticz Log
-After adding,ensure to check the Domoticz Log (Domoticz Web UI, select tab Setup > Log)
+After adding,ensure to check the Domoticz Log.
 Example:
 ```
 2019-05-27 09:43:31.992 Status: (Traffic Light) Started. 
