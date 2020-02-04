@@ -1,4 +1,5 @@
-# Domoticz Tinkerforge Plugin - TrafficLight
+# Domoticz Plugin Tinkerforge TrafficLight
+Domoticz plugin to explore how to interact with Tinkerforge Building Blocks.
 
 # Objectives
 * To set the color of a Tinkerforge RGB Bricklet to red, yellow or green using a Domoticz Selector Switch Device.
@@ -14,17 +15,17 @@ The Tinkerforge RGB LED Bricklet is connected to a Tinkerforge Master Brick with
 
 ## Hardware Parts
 * Raspberry Pi 3B+
-* Tinkerforge Master Brick 1.1 [(Info)](https://www.tinkerforge.com/en/doc/Hardware/Bricks/Master_Brick.html#master-brick)
+* Tinkerforge Master Brick 2.1 [(Info)](https://www.tinkerforge.com/en/doc/Hardware/Bricks/Master_Brick.html#master-brick)
 * Tinkerforge WIFI Master Extention 2.0 [(Info)](https://www.tinkerforge.com/en/doc/Hardware/Master_Extensions/WIFI_V2_Extension.html)
 * Tinkerforge RGB LED Bricklet [(Info)](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/RGB_LED.html)
 
 ## Software
-Versions for developing & using this plugin.
 * Raspberry Pi Raspian Linux 4.19.42-v7+ #1219
-* Domoticz Home Automation System V4.1nnnn (BETA)
-* Tinkerforge Python Binding v2.1.22
+* Domoticz Home Automation System 4.1nnnn (BETA)
+* Tinkerforge Python API-Binding 2.1.22
 * Python 3.5.3
-* Thonny 3.1.2 (Python IDE)
+**Note**
+Versions for developing & using this plugin. These are subject to change.
 
 ## Setup Tinkerforge and Domoticz
 
@@ -32,7 +33,9 @@ Versions for developing & using this plugin.
 ```
 sudo pip3 install tinkerforge
 ```
-Check if Tinkerforge Python API bindings are installed in folder: /usr/local/lib/python3.5/dist-packages
+Check if the Tinkerforge Python API bindings are installed in folder: /usr/local/lib/python3.5/dist-packages
+**Note**
+Check the version of "python3" in the folder path. This could also be python 3.7 or other.
 
 ## Tinkerforge Master Brick and Bricklets
 Ensure the Master Brick and Bricklets are running with the latest firmware.
@@ -198,12 +201,6 @@ Handling the state changes are managed by the function onCommand.
 2019-05-27 09:51:51.045 (Traffic Light) Traffic Light - Change Info-nValue=0,sValue=Traffic Light changed from 0 to 10 
 2019-05-27 09:51:51.148 (Traffic Light) TrafficLight Update: OK 
 ```
-
-## ToDo
-Exception handling for communicating with the Master Brick & WiFi extension.
-
-## Version
-20190528
 
 ## APPENDIX Tinkerforge - Master Brick and Bricklets
 Ensure the Master Brick and Bricklets are running with the latest firmware.
