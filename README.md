@@ -24,8 +24,7 @@ The Tinkerforge RGB LED Bricklet is connected to a Tinkerforge Master Brick with
 * Domoticz Home Automation System 4.1nnnn (BETA)
 * Tinkerforge Python API-Binding 2.1.22
 * Python 3.5.3
-**Note**
-Versions for developing & using this plugin. These are subject to change.
+* The versions for developing this plugin are subject to change.
 
 ## Setup Tinkerforge and Domoticz
 
