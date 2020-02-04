@@ -1,4 +1,4 @@
-# Changelog domoticz-plugin-tinkerforge-traffic-light
+# Changelog domoticz-plugin-tinkerforge-trafficlight
 
 ### v1.1.0 (Build 20190604)
 * UPD: Improved error handling
